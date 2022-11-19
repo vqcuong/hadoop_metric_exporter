@@ -17,7 +17,8 @@ COPY ./entrypoint.sh /entrypoint.sh
 COPY --from=builder /hadoop_exporter/hadoop_exporter /usr/local/bin/hadoop_exporter
 
 RUN set -ex \
-    && chmod +x /entrypoint.sh
+    && chmod +x /entrypoint.sh \
+    && chmod +x /usr/local/bin/hadoop_exporter
 
 EXPOSE ${HADOOP_EXPORTER_PORT}
 
