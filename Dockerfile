@@ -11,7 +11,6 @@ COPY ./hadoop_exporter/* ./
 COPY ./entrypoint.sh /entrypoint.sh
 
 ENV GO111MODULE=on
-ENV GOFLAGS=-mod=vendor
 ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 
 RUN set -ex \
