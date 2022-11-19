@@ -5,7 +5,7 @@ COPY ./hadoop_exporter /hadoop_exporter
 
 RUN set -ex \
     && go mod download \
-    && go build
+    && env GOOS=linux GOARCH=amd64 go build
 
 FROM debian:10-slim
 
