@@ -10,9 +10,13 @@ WORKDIR ${HADOOP_EXPORTER_WORKDIR}
 COPY ./hadoop_exporter/* ./
 COPY ./entrypoint.sh /entrypoint.sh
 
+ENV GO111MODULE=on
+ENV GOFLAGS=-mod=vendor
+ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
+
 RUN set -ex \
     && go mod download \
-    && go build -o /usr/local/bin/hadoop_exporter \
+    &&  go build -o /usr/local/bin/hadoop_exporter ./ \
     && chmod +x /entrypoint.sh
 
 EXPOSE ${HADOOP_EXPORTER_PORT}
