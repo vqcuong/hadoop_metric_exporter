@@ -1,4 +1,5 @@
-# Hadoop Exporter for Prometheus
+# Hadoop Prometheus Exporter
+(this is a golang version of [hadoop_exporter](https://github.com/vqcuong/hadoop_exporter))
 
 ## How it works
 - Consume metrics from JMX http, convert and export hadoop metrics via HTTP for Prometheus consumption.
