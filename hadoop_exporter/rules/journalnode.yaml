@@ -1,0 +1,22 @@
+# Reference: https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/Metrics.html
+lowercaseOutputName: true
+lowercaseOutputLabel: false
+rules:
+  Hadoop:service=JournalNode,name=Journal-(.+):
+    - pattern: ^(Syncs\d+s)(NumOps)$
+      type: GAUSE
+      name: ${2}_${3}
+      labels:
+        nameservice: ${1}
+    - pattern: ^(Syncs\d+s)(\d+th)Percentile(Latency)Micros$
+      type: GAUSE
+      name: ${2}_${4}_micros
+      labels:
+        nameservice: ${1}
+        percentile: ${3}
+    - pattern: ^((?!tag|modelerType|name|Syncs).*)
+      type: GAUSE
+      name: metrics
+      labels:
+        nameservice: ${1}
+        type: ${2}

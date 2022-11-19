@@ -1,0 +1,34 @@
+lowercaseOutputName: true
+lowercaseOutputLabel: false
+rules:
+  Hadoop:service=NodeManager,name=(NodeManagerMetrics)$:
+    - pattern: ^(Containers)(\w+)$
+      type: GAUSE
+      name: ${1}_${2}
+      labels:
+        type: ${3}
+      help: "Total number of containers on the type"
+    - pattern: ^((?!tag|modelerType|name|Containers).*)
+      type: GAUSE
+      name: ${1}
+      labels:
+        type: ${2}
+
+  Hadoop:service=NodeManager,name=(sparkShuffleService)$:
+    - pattern: ^(openBlockRequestLatencyMillis|blockTransferRateBytes|registerExecutorRequestLatencyMillis)_(\w+)$
+      type: GAUSE
+      name: ${1}_${2}
+      labels:
+        type: ${3}
+    - pattern: ^(numRegisteredConnections|numCaughtExceptions|registeredExecutorsSize|numActiveConnections)$
+      type: GAUSE
+      name: ${1}
+      labels:
+        type: ${2}
+
+  Hadoop:service=NodeManager,name=(ShuffleMetrics)$:
+    - pattern: ^Shuffle(\w+)$
+      type: GAUSE
+      name: ${1}
+      labels:
+        type: ${2}

@@ -1,0 +1,83 @@
+# Reference: https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/Metrics.html
+lowercaseOutputName: true
+lowercaseOutputLabel: false
+rules:
+  Hadoop:service=NameNode,name=(NameNodeInfo)$:
+    - pattern: ^(Total|Used|Free|NonDfsUsedSpace|Percent.+|Cache.+|CorruptFilesCount|Threads)$
+      type: GAUSE
+      name: ${1}
+      labels:
+        type: ${2}
+
+  Hadoop:service=NameNode,name=(FSNamesystem)$:
+    - pattern: ^(Capacity)(.+)
+      type: GAUSE
+      name: ${1}_${2}
+      labels:
+        type: ${3}
+
+    - pattern: ^(\w+)(Blocks)$
+      type: GAUSE
+      name: ${1}_${3}
+      labels:
+        type: ${2}
+    
+    - pattern: ^(Num)(.+)(DataNodes)$
+      type: GAUSE
+      name: ${1}_${2}_${4}
+      labels:
+        type: ${3}
+
+    - pattern: ^(TotalLoad|BlocksTotal|FilesTotal|TotalSyncCount|NumActiveClients|NumFilesUnderConstruction|NumStaleStorages)$
+      type: GAUSE
+      name: ${1}
+      labels:
+        type: ${2}
+    
+    - pattern: ^(Transactions\w+|Last\w+)$
+      type: GAUSE
+      name: ${1}
+      labels:
+        type: ${2}
+
+    - pattern: .*(HAState)$
+      type: GAUSE
+      name: ${2}
+      # mapping: hadoop_exporter.mapping.hastate
+
+  Hadoop:service=NameNode,name=(FSNamesystemState)$:
+    - pattern: ^(Capacity)(.+)
+      type: GAUSE
+      name: ${1}_${2}
+      labels:
+        type: ${3}
+
+    - pattern: ^(Num)(.+)(DataNodes)$
+      type: GAUSE
+      name: ${1}_${2}_${4}
+      labels:
+        type: ${3}
+
+    - pattern: ^(\w+)(Blocks)$
+      type: GAUSE
+      name: ${1}_${3}
+      labels:
+        type: ${2}
+
+    - pattern: ^(TotalLoad|BlocksTotal|FilesTotal|TotalSyncCount|VolumeFailuresTotal|EstimatedCapacityLostTotal)$
+      type: GAUSE
+      name: ${1}
+      labels:
+        type: ${2}
+
+    - pattern: (FSState)
+      type: GAUSE
+      name: ${2}
+      # mapping: hadoop_exporter.mapping.fsstate
+
+  Hadoop:service=NameNode,name=(NameNodeActivity)$:
+    - pattern: ^((?!tag|modelerType|name).*)
+      type: GAUSE
+      name: ${1}
+      labels:
+        type: ${2}

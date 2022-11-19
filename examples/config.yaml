@@ -1,0 +1,44 @@
+# exporter server config
+server:
+  address: 127.0.0.1 # address to run exporter
+  port: 9123 # port to listen
+  metricPath: /metrics # metric path to expose
+  logLevel: info # logging level included: all, info, warn, debug, error
+
+# list of jmx service to scape metrics
+jmx:
+  - cluster: hadoop_prod
+    services:
+      nameNode:
+        - http://nn1:9870/jmx
+      dataNode:
+        - http://dn1:9864/jmx
+        - http://dn2:9864/jmx
+        - http://dn3:9864/jmx
+      resourceManager:
+        - http://rm1:8088/jmx
+      nodeManager:
+        - http://nm1:8042/jmx
+        - http://nm2:8042/jmx
+        - http://nm3:8042/jmx
+      hiveServer2:
+        - http://hs2:10002/jmx
+      hMaster:
+        - http://hmaster1:16010/jmx
+        - http://hmaster2:16010/jmx
+        - http://hmaster3:16010/jmx
+      hRegionserver:
+        - http://hregionserver1:16030/jmx
+        - http://hregionserver2:16030/jmx
+        - http://hregionserver3:16030/jmx
+
+  - cluster: hadoop_dev
+    services:
+      nameNode:
+        - http://dev:9870/jmx
+      dataNode:
+        - http://dev:9864/jmx
+      resourceManager:
+        - http://dev:8088/jmx
+      nodeManager:
+        - http://dev:8042/jmx

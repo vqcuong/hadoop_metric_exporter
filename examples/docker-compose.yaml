@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  hadoop_exporter:
+    image: vqcuong96/hadoop_exporter
+    container_name: hadoop_exporter
+    ports:
+      - 9123:9123
+    volumes:
+      - ./config-example.yaml:/exporter/config.yaml
+      - exporter_logs:/exporter/logs
+volumes:
+  exporter_logs:
+    external: false
