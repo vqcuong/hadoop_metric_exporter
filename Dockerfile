@@ -1,19 +1,16 @@
 FROM golang:1.19.3-alpine as builder
 
-WORKDIR /go/app/hadoop_exporter
-
-ENV HADOOP_EXPORTER_METRICS_DIR=/hadoop_exporter/rules
+ENV HADOOP_EXPORTER_WORKDIR=/hadoop_exporter
+ENV HADOOP_EXPORTER_METRICS_DIR=${HADOOP_EXPORTER_WORKDIR}/rules
 ENV HADOOP_EXPORTER_PORT=9123
+WORKDIR ${HADOOP_EXPORTER_WORKDIR}
 
-COPY ./rules /hadoop_exporter/
-COPY ./hadoop_exporter/go.mod ./
-COPY ./hadoop_exporter/go.sum ./
-RUN go mod download
-
-COPY ./hadoop_exporter/* ./
+COPY ./hadoop_exporter ${HADOOP_EXPORTER_WORKDIR}
+COPY ./rules ${HADOOP_EXPORTER_METRICS_DIR}
 COPY ./entrypoint.sh /entrypoint.sh
 
 RUN set -ex \
+    && go mod download \
     && go build -o /usr/local/bin/hadoop_exporter ./ \
     && chmod +x /entrypoint.sh
 
