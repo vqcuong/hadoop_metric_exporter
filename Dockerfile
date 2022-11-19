@@ -14,11 +14,10 @@ ENV HADOOP_EXPORTER_PORT=9123
 
 COPY ./rules ${HADOOP_EXPORTER_METRICS_DIR}
 COPY ./entrypoint.sh /entrypoint.sh
-COPY --from=builder /hadoop_exporter/hadoop_exporter /usr/local/bin/hadoop_exporter
+COPY --from=builder /hadoop_exporter/hadoop_exporter /hadoop_exporter
 
 RUN set -ex \
-    && chmod +x /entrypoint.sh \
-    && chmod +x /usr/local/bin/hadoop_exporter
+    && chmod +x /entrypoint.sh
 
 EXPOSE ${HADOOP_EXPORTER_PORT}
 
