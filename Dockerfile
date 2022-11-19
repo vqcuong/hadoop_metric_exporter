@@ -3,9 +3,11 @@ FROM golang:1.19.3-alpine as builder
 WORKDIR /hadoop_exporter
 COPY ./hadoop_exporter /hadoop_exporter
 
+ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
+
 RUN set -ex \
     && go mod download \
-    && env GOOS=linux GOARCH=amd64 go build
+    && go build
 
 FROM debian:10-slim
 
