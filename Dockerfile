@@ -9,7 +9,7 @@ RUN set -ex \
 
 FROM debian:10-slim
 
-ENV HADOOP_EXPORTER_METRICS_DIR=/hadoop_exporter/rules
+ENV HADOOP_EXPORTER_METRICS_DIR=/etc/hadoop_exporter/rules
 ENV HADOOP_EXPORTER_PORT=9123
 
 COPY ./rules ${HADOOP_EXPORTER_METRICS_DIR}
