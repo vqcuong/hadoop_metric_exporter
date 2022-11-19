@@ -31,7 +31,7 @@ type MetricCollector struct {
 	firstGetCommonLabels map[string]bool
 }
 
-var EXPORTER_RULES_DIR = utils.CoalesceString(os.Getenv("HADOOP_EXPORTER_METRICS_DIR"), "./rules")
+var EXPORTER_RULES_DIR = utils.CoalesceString(os.Getenv("HADOOP_EXPORTER_METRICS_DIR"), "./../rules")
 
 func InitMetricCollector(cluster string, component string, service string, urls []string) MetricCollector {
 	commonRuleFile := fmt.Sprintf("%s/%s.yaml", EXPORTER_RULES_DIR, "common")
