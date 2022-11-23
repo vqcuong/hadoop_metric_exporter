@@ -22,7 +22,7 @@ type MetricCollector struct {
 	component            string
 	service              string
 	prefix               string
-	urls                 []string
+	urls                 *[]string
 	rules                map[string][]MetricRulePattern
 	isLowerName          bool
 	isLowerLabel         bool
@@ -33,7 +33,7 @@ type MetricCollector struct {
 
 var EXPORTER_RULES_DIR = utils.CoalesceString(os.Getenv("HADOOP_EXPORTER_METRICS_DIR"), "./../rules")
 
-func InitMetricCollector(cluster string, component string, service string, urls []string) MetricCollector {
+func InitMetricCollector(cluster string, component string, service string, urls *[]string) MetricCollector {
 	commonRuleFile := fmt.Sprintf("%s/%s.yaml", EXPORTER_RULES_DIR, "common")
 	serviceRuleFile := fmt.Sprintf("%s/%s.yaml", EXPORTER_RULES_DIR, service)
 
@@ -47,7 +47,7 @@ func InitMetricCollector(cluster string, component string, service string, urls 
 	}
 
 	firstGetCommonLabels := make(map[string]bool)
-	for _, url := range urls {
+	for _, url := range *urls {
 		firstGetCommonLabels[url] = true
 	}
 	collector := MetricCollector{
@@ -214,7 +214,7 @@ func (collector MetricCollector) Collect(ch chan<- prometheus.Metric) {
 		metrics[beanPattern] = make(map[string][]prometheus.Metric)
 	}
 
-	for _, url := range collector.urls {
+	for _, url := range *collector.urls {
 		beans := getRawBeans(url)
 		if beans == nil {
 			logrus.Warnf("Can't scrape metrics from %s", url)

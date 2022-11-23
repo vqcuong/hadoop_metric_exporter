@@ -110,7 +110,7 @@ func (server *ExporterServer) handleCollectors() {
 					*args.ClusterName,
 					v.component,
 					service,
-					[]string{url},
+					&[]string{url},
 				),
 			)
 		}
@@ -119,9 +119,9 @@ func (server *ExporterServer) handleCollectors() {
 
 func buildClusterCollectors(clusterJmx *HadoopClusterJmx) []prometheus.Collector {
 	cluster := clusterJmx.Cluster
-	collectors := make([]prometheus.Collector, len(*clusterJmx.Services))
+	collectors := make([]prometheus.Collector, len(clusterJmx.Services))
 	i := 0
-	for service, urls := range *clusterJmx.Services {
+	for service, urls := range clusterJmx.Services {
 		collectors[i] = prometheus.Collector(collector.InitMetricCollector(
 			cluster,
 			SERVICE_MAPPER[strings.ToLower(service)].component,
