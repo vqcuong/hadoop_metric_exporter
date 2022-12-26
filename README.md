@@ -1,5 +1,5 @@
 # Hadoop Prometheus Exporter
-(this is a golang version of [hadoop_exporter](https://github.com/vqcuong/hadoop_exporter))
+An hadoop metrics exporter for common hadoop components. Currently, I've just implemented for HDFS NameNode, HDFS DataNode, HDFS JournalNode, YARN ResourceManager, YARN NodeManager. This is a golang version, you may take another version using python [here](https://github.com/vqcuong/hadoop_exporter).
 
 ## How it works
 - Consume metrics from JMX http, convert and export hadoop metrics via HTTP for Prometheus consumption.
@@ -137,5 +137,5 @@ To build your own images, run:
 Example:
 ```
 ./docker/build.sh mydockerhub/ latest 
-#your image like that: mydockerhub/hadoop_metric_exporter:latest
+#your image will look like: mydockerhub/hadoop_metric_exporter:latest
 ```
