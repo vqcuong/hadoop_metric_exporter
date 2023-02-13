@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 5,
-  "iteration": 1672027084126,
+  "iteration": 1676281857891,
   "links": [],
   "panels": [
     {
@@ -1353,7 +1353,7 @@
               },
               {
                 "id": "unit",
-                "value": "mbytes"
+                "value": "short"
               }
             ]
           },
@@ -1428,7 +1428,12 @@
       "id": 25,
       "options": {
         "showHeader": true,
-        "sortBy": []
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Processors"
+          }
+        ]
       },
       "pluginVersion": "7.5.7",
       "targets": [
@@ -6412,7 +6417,6 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "tags": [],
           "text": [
             "All"
           ],
@@ -6450,10 +6454,10 @@
           "selected": true,
           "tags": [],
           "text": [
-            "All"
+            "root"
           ],
           "value": [
-            "$__all"
+            "root"
           ]
         },
         "datasource": null,
@@ -6495,12 +6499,11 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "tags": [],
           "text": [
-            "All"
+            "default"
           ],
           "value": [
-            "$__all"
+            "default"
           ]
         },
         "datasource": null,
@@ -6548,5 +6551,5 @@
   "timezone": "",
   "title": "YARN Overview",
   "uid": "NB7h4c77z",
-  "version": 23
+  "version": 24
 }
