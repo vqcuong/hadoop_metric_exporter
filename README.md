@@ -5,9 +5,20 @@ An hadoop metrics exporter for common hadoop components. Currently, I've just im
 - Consume metrics from JMX http, convert and export hadoop metrics via HTTP for Prometheus consumption.
 - Underlyring, I used regex template to parse and map config name as well as label before exporting it via promethues http server. You can see my templates in folder [metrics](./metrics)
 
+## Install go environment
+
+- Follow this [docs](https://github.com/go-nv/goenv/blob/master/INSTALL.md) to install goenv
+- Install specified go version
+```
+# the using version is defined in .go-version file
+cd hadoop_exporter
+goenv install --skip-existing
+```
+
 ## How to run
 ```
-cd hadoop_exporter && go build && ./hadoop_exporter
+cd hadoop_exporter
+go build && ./hadoop_exporter
 ```
 
 Help on flags of hadoop_exporter:
