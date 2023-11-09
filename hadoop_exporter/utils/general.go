@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"io/ioutil"
+	"os"
 	"sort"
 	"strings"
 
@@ -11,7 +11,7 @@ import (
 )
 
 func ReadYamlFile(path string) (map[string]interface{}, error) {
-	buffer, err := ioutil.ReadFile(path)
+	buffer, err := os.ReadFile(path)
 	if err != nil {
 		logrus.Warnf("Error when attempt to read %s: %v", path, err)
 		return nil, err
