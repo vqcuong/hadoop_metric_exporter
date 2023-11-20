@@ -1,7 +1,7 @@
 package collector
 
 import (
-	"io/ioutil"
+	"os"
 
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
@@ -22,7 +22,7 @@ type ServiceRules struct {
 }
 
 func ReadServiceRules(path string) (*ServiceRules, error) {
-	buffer, err := ioutil.ReadFile(path)
+	buffer, err := os.ReadFile(path)
 	if err != nil {
 		logrus.Warnf("Error when attempt to read %s: %v", path, err)
 		return nil, err

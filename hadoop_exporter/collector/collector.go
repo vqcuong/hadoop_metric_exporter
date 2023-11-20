@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"hadoop_exporter/utils"
-	"io/ioutil"
+	"io"
 	"math/rand"
 	"net/http"
 	"os"
@@ -166,7 +166,7 @@ func (collector *MetricCollector) convertMetrics(beans *[]map[string]interface{}
 							if collector.isLowerLabel {
 								prometheusLabelNames = utils.LambdaApply(prometheusLabelNames, strings.ToLower)
 							}
-							var prometheusMetricHelp = ""
+							prometheusMetricHelp := ""
 							if strings.Trim(metricDef.Help, " ") == "" {
 								prometheusMetricHelp = prometheusMetricName
 							} else {
@@ -295,13 +295,13 @@ func getRawBeans(url string) *[]map[string]interface{} {
 		logrus.Warnf("Get %s failed, response code is: %d", url, resp.StatusCode)
 		return nil
 	}
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		logrus.Warnf("Read response body failded: %v", err)
 		return nil
 	}
 	var data map[string][]map[string]interface{}
-	err = json.Unmarshal(body, &data)
+	_ = json.Unmarshal(body, &data)
 	if val, ok := data["beans"]; ok {
 		return &val
 	}
