@@ -86,42 +86,43 @@ func (collector *MetricCollector) getCommonLabels(beans *[]map[string]interface{
 	collector.commonLabels[url]["names"] = append(collector.commonLabels[url]["names"], "cluster")
 	collector.commonLabels[url]["values"] = append(collector.commonLabels[url]["values"], collector.cluster)
 
-	if collector.service == "namenode" {
+	switch collector.service {
+	case "namenode":
 		beanPattern := "Hadoop:service=NameNode,name=JvmMetrics"
 		bean := findBean(beans, beanPattern)
 		if bean != nil {
 			collector.commonLabels[url]["names"] = append(collector.commonLabels[url]["names"], "host")
 			collector.commonLabels[url]["values"] = append(collector.commonLabels[url]["values"], (*bean)["tag.Hostname"].(string))
 		}
-	} else if collector.service == "datanode" {
+	case "datanode":
 		beanPattern := "Hadoop:service=DataNode,name=JvmMetrics"
 		bean := findBean(beans, beanPattern)
 		if bean != nil {
 			collector.commonLabels[url]["names"] = append(collector.commonLabels[url]["names"], "host")
 			collector.commonLabels[url]["values"] = append(collector.commonLabels[url]["values"], (*bean)["tag.Hostname"].(string))
 		}
-	} else if collector.service == "journalnode" {
+	case "journalnode":
 		beanPattern := "Hadoop:service=JournalNode,name=JvmMetrics"
 		bean := findBean(beans, beanPattern)
 		if bean != nil {
 			collector.commonLabels[url]["names"] = append(collector.commonLabels[url]["names"], "host")
 			collector.commonLabels[url]["values"] = append(collector.commonLabels[url]["values"], (*bean)["tag.Hostname"].(string))
 		}
-	} else if collector.service == "resourcemanager" {
+	case "resourcemanager":
 		beanPattern := "Hadoop:service=ResourceManager,name=JvmMetrics"
 		bean := findBean(beans, beanPattern)
 		if bean != nil {
 			collector.commonLabels[url]["names"] = append(collector.commonLabels[url]["names"], "host")
 			collector.commonLabels[url]["values"] = append(collector.commonLabels[url]["values"], (*bean)["tag.Hostname"].(string))
 		}
-	} else if collector.service == "nodemanager" {
+	case "nodemanager":
 		beanPattern := "Hadoop:service=NodeManager,name=JvmMetrics"
 		bean := findBean(beans, beanPattern)
 		if bean != nil {
 			collector.commonLabels[url]["names"] = append(collector.commonLabels[url]["names"], "host")
 			collector.commonLabels[url]["values"] = append(collector.commonLabels[url]["values"], (*bean)["tag.Hostname"].(string))
 		}
-	} else if collector.service == "hiveserver2" {
+	case "hiveserver2":
 		beanPattern := `org.apache.logging.log4j2:type=AsyncContext@(\w{8})$`
 		bean := findBean(beans, beanPattern)
 		if bean != nil {
@@ -130,6 +131,8 @@ func (collector *MetricCollector) getCommonLabels(beans *[]map[string]interface{
 			collector.commonLabels[url]["names"] = append(collector.commonLabels[url]["names"], "host")
 			collector.commonLabels[url]["values"] = append(collector.commonLabels[url]["values"], matched.Groups()[0].String())
 		}
+	default:
+		return
 	}
 }
 
@@ -258,25 +261,27 @@ func resolveMetricValue(beanName string, name string, value interface{}) float64
 }
 
 func mapFSState(v string) float64 {
-	if v == "Operational" {
+	switch v {
+	case "Operational":
 		return 0
-	} else if v == "Safemode" {
+	case "Safemode":
 		return 1
-	} else {
+	default:
 		return 9999
 	}
 }
 
 func mapHAState(v string) float64 {
-	if v == "initializing" {
+	switch v {
+	case "initializing":
 		return 0
-	} else if v == "active" {
+	case "active":
 		return 1
-	} else if v == "standby" {
+	case "standby":
 		return 2
-	} else if v == "stopping" {
+	case "stopping":
 		return 3
-	} else {
+	default:
 		return 9999
 	}
 }
