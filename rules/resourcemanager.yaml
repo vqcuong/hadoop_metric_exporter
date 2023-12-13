@@ -8,7 +8,7 @@ rules:
       labels:
         queue0: ${2}
         type: ${4}
-      help: 'Current number of running applications based on type. See https://hadoop.apache.org/docs/r3.3.0/hadoop-project-dist/hadoop-common/Metrics.html#QueueMetrics to more details'
+      help: "Current number of running applications based on type. See https://hadoop.apache.org/docs/r3.3.0/hadoop-project-dist/hadoop-common/Metrics.html#QueueMetrics to more details"
 
     - pattern: (.+)(Containers)$
       type: GAUSE
@@ -16,7 +16,7 @@ rules:
       labels:
         queue0: ${2}
         type: ${3}
-      help: 'Current number of containers are on the type'
+      help: "Current number of containers are on the type"
 
     - pattern: (.+)(VCores)$
       type: GAUSE
@@ -24,7 +24,7 @@ rules:
       labels:
         queue0: ${2}
         type: ${3}
-      help: 'Current cpu resource in virtual cores of type'
+      help: "Current cpu resource in virtual cores of type"
 
     - pattern: (.+)(MB)$
       type: GAUSE
@@ -32,7 +32,7 @@ rules:
       labels:
         queue0: ${2}
         type: ${3}
-      help: 'Current memory resource in MB of type'
+      help: "Current memory resource in MB of type"
 
     - pattern: ^(Apps)(.+)
       type: GAUSE
@@ -40,7 +40,7 @@ rules:
       labels:
         queue0: ${2}
         type: ${4}
-      help: 'Current number of applications are on the type'
+      help: "Current number of applications are on the type"
 
     - pattern: ^((?!tag|modelerType|name).*)
       type: GAUSE
@@ -57,7 +57,7 @@ rules:
         queue0: ${2}
         queue1: ${3}
         type: ${5}
-      help: 'Current number of running applications based on type. See https://hadoop.apache.org/docs/r3.3.0/hadoop-project-dist/hadoop-common/Metrics.html#QueueMetrics to more details'
+      help: "Current number of running applications based on type. See https://hadoop.apache.org/docs/r3.3.0/hadoop-project-dist/hadoop-common/Metrics.html#QueueMetrics to more details"
 
     - pattern: (.+)(Containers)$
       type: GAUSE
@@ -66,7 +66,7 @@ rules:
         queue0: ${2}
         queue1: ${3}
         type: ${4}
-      help: 'Current number of containers are on the type'
+      help: "Current number of containers are on the type"
 
     - pattern: (.+)(VCores)$
       type: GAUSE
@@ -75,7 +75,7 @@ rules:
         queue0: ${2}
         queue1: ${3}
         type: ${4}
-      help: 'Current cpu resource in virtual cores of type'
+      help: "Current cpu resource in virtual cores of type"
 
     - pattern: (.+)(MB)$
       type: GAUSE
@@ -84,7 +84,7 @@ rules:
         queue0: ${2}
         queue1: ${3}
         type: ${4}
-      help: 'Current memory resource in MB of type'
+      help: "Current memory resource in MB of type"
 
     - pattern: ^(Apps)(.+)
       type: GAUSE
@@ -93,7 +93,7 @@ rules:
         queue0: ${2}
         queue1: ${3}
         type: ${5}
-      help: 'Current number of applications are on the type'
+      help: "Current number of applications are on the type"
 
     - pattern: ^((?!tag|modelerType|name).*)
       type: GAUSE

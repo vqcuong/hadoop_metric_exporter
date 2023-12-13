@@ -131,7 +131,7 @@ Run container:
 
 ```
 docker run -d \
-  --name hadoop-exporter \
+  --name hadoop-metric-exporter \
   vqcuong96/hadoop_metric_exporter \
   -nn http://localhost:9870/jmx \
   -rm http://localhost:8088/jmx
@@ -141,7 +141,7 @@ You can also mount config to docker container:
 
 ```
 docker run -d \
-  --name hadoop_metric_exporter \
+  --name hadoop-metric-exporter \
   --mount type=bind,source=/path/to/config.yaml,target=/tmp/config.yaml \
   vqcuong96/hadoop_metric_exporter \
   -c /tmp/config.yaml
@@ -153,9 +153,9 @@ To build your own images, run:
 ./docker/build.sh [your_repo] [your_version_tag]
 ```
 
-Example:
+For example:
 
 ```
-./docker/build.sh mydockerhub/ latest
+./build.sh mydockerhub/ latest
 #your image will look like: mydockerhub/hadoop_metric_exporter:latest
 ```

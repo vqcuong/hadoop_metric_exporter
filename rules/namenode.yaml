@@ -21,7 +21,7 @@ rules:
       name: ${1}_${3}
       labels:
         type: ${2}
-    
+
     - pattern: ^(Num)(.+)(DataNodes)$
       type: GAUSE
       name: ${1}_${2}_${4}
@@ -33,7 +33,7 @@ rules:
       name: ${1}
       labels:
         type: ${2}
-    
+
     - pattern: ^(Transactions\w+|Last\w+)$
       type: GAUSE
       name: ${1}

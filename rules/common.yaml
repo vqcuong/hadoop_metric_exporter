@@ -22,7 +22,7 @@ rules:
       labels:
         type: ${3}
       help: "${1} metrics"
-  
+
   Hadoop:service=.+,name=(RpcActivity)ForPort(\d+):
     - pattern: (.+)(NumOps|AvgTime)$
       type: GAUSE

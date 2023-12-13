@@ -1,12 +1,13 @@
 version: "3"
 
 services:
-  hadoop_exporter:
+  hadoop_metric_exporter:
     image: vqcuong96/hadoop_metric_exporter
     container_name: hadoop_metric_exporter
     ports:
       - 9123:9123
     volumes:
+      # By default, the program will try to read the default config /exporter/config.yaml
       - ./example/config.yaml:/exporter/config.yaml
       - exporter_logs:/exporter/logs
 volumes:
