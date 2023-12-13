@@ -1,12 +1,7 @@
 FROM golang:1.21.4-alpine as builder
 
 WORKDIR /hadoop_metric_exporter
-COPY ./collector /hadoop_metric_exporter/
-COPY ./server /hadoop_metric_exporter/
-COPY ./utils /hadoop_metric_exporter/
-COPY ./main.go /hadoop_metric_exporter/
-COPY ./go.mod /hadoop_metric_exporter/
-COPY ./go.sum /hadoop_metric_exporter/
+COPY . /hadoop_metric_exporter/
 
 ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 
