@@ -1,4 +1,4 @@
-FROM golang:1.19.3-alpine as builder
+FROM golang:1.21.4-alpine as builder
 
 WORKDIR /hadoop_metric_exporter
 COPY ./collector /hadoop_metric_exporter/
