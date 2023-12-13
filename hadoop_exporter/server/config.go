@@ -8,16 +8,16 @@ import (
 )
 
 type HadoopClusterJmx struct {
-	Cluster  string               `yaml:"cluster"`
 	Services map[string]*[]string `yaml:"services"`
+	Cluster  string               `yaml:"cluster"`
 }
 
 type ExporterConfig struct {
 	Server *struct {
 		Address    string `yaml:"address"`
-		Port       int    `yaml:"port"`
 		MetricPath string `yaml:"metricPath"`
 		LogLevel   string `yaml:"logLevel"`
+		Port       int    `yaml:"port"`
 	} `yaml:"server"`
 	Jmx *[]HadoopClusterJmx `yaml:"jmx"`
 }

@@ -42,14 +42,14 @@ var SERVICE_MAPPER = map[string]struct {
 }
 
 type ExporterServer struct {
-	autoDiscovery      bool
-	discoveryWhitelist []string
+	config             *ExporterConfig
 	address            string
-	port               int
 	metricPath         string
 	logLevel           string
 	collectors         []prometheus.Collector
-	config             *ExporterConfig
+	discoveryWhitelist []string
+	port               int
+	autoDiscovery      bool
 }
 
 func InitlExporterServer() *ExporterServer {
@@ -137,14 +137,14 @@ func (server *ExporterServer) ExposeMetrics() {
 	prometheus.MustRegister(server.collectors...)
 	// http.Handle(server.metricPath, promhttp.InstrumentMetricHandler(prometheus.DefaultRegisterer, metricHandler(server.collectors)))
 	http.Handle(server.metricPath, promhttp.Handler())
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(fmt.Sprintf(`<html>
+	http.HandleFunc("/", func(w http.ResponseWriter, _ *http.Request) {
+		fmt.Fprintf(w, `<html>
 			<head><title>Hadoop Exporter</title></head>
 			<body>
 			<h1>Hadoop Exporter</h1>
 			<p><a href="%s">Metrics</a></p>
 			</body>
-			</html>`, server.metricPath)))
+			</html>`, server.metricPath)
 	})
 }
 

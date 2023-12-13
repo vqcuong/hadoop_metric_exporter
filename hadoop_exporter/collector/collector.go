@@ -18,17 +18,17 @@ import (
 var NON_METRIC_NAMES = []string{"name", "modelerType", "Name", "ObjectName"}
 
 type MetricCollector struct {
+	rules                map[string][]MetricRulePattern
+	commonLabels         map[string]map[string][]string
+	firstGetCommonLabels map[string]bool
+	metricDescs          *map[string]map[string]*prometheus.Desc
+	urls                 *[]string
 	cluster              string
 	component            string
 	service              string
 	prefix               string
-	urls                 *[]string
-	rules                map[string][]MetricRulePattern
 	isLowerName          bool
 	isLowerLabel         bool
-	metricDescs          *map[string]map[string]*prometheus.Desc
-	commonLabels         map[string]map[string][]string
-	firstGetCommonLabels map[string]bool
 }
 
 var EXPORTER_RULES_DIR = utils.CoalesceString(os.Getenv("HADOOP_EXPORTER_METRICS_DIR"), "./../rules")

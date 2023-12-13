@@ -8,17 +8,17 @@ import (
 )
 
 type MetricRulePattern struct {
+	Labels  map[string]string `yaml:"labels"`
 	Pattern string            `yaml:"pattern"`
 	Type    string            `yaml:"type"`
 	Name    string            `yaml:"name"`
-	Labels  map[string]string `yaml:"labels"`
 	Help    string            `yaml:"help"`
 }
 
 type ServiceRules struct {
+	MetricRules          map[string][]MetricRulePattern `yaml:"rules"`
 	LowercaseOutputName  bool                           `yaml:"lowercaseOutputName"`
 	LowercaseOutputLabel bool                           `yaml:"lowercaseOutputLabel"`
-	MetricRules          map[string][]MetricRulePattern `yaml:"rules"`
 }
 
 func ReadServiceRules(path string) (*ServiceRules, error) {
