@@ -1,7 +1,9 @@
 # Hadoop Prometheus Exporter
+
 An hadoop metrics exporter for common hadoop components. Currently, I've just implemented for HDFS NameNode, HDFS DataNode, HDFS JournalNode, YARN ResourceManager, YARN NodeManager. This is a golang version, you may take another version using python [here](https://github.com/vqcuong/hadoop_exporter).
 
 ## How it works
+
 - Consume metrics from JMX http, convert and export hadoop metrics via HTTP for Prometheus consumption.
 - Underlyring, I used regex template to parse and map config name as well as label before exporting it via promethues http server. You can see my templates in folder [metrics](./metrics)
 
@@ -9,56 +11,57 @@ An hadoop metrics exporter for common hadoop components. Currently, I've just im
 
 - Follow this [docs](https://github.com/go-nv/goenv/blob/master/INSTALL.md) to install goenv
 - Install specified go version
+
 ```
 # the using version is defined in .go-version file
-cd hadoop_exporter
 goenv install --skip-existing
 ```
 
 ## How to run
+
 ```
-cd hadoop_exporter
-go build && ./hadoop_exporter
+go build && ./hadoop_metric_exporter
 ```
 
-Help on flags of hadoop_exporter:
+Help on flags of hadoop_metric_exporter:
+
 ```
-$ hadoop_exporter --help
-usage: hadoop_exporter [<flags>]
+$ hadoop_metric_exporter --help
+usage: hadoop_metric_exporter [<flags>]
 Flags:
       --help                     Show context-sensitive help (also try --help-long and --help-man).
-  -c, --config="/exporter/config.yaml"  
+  -c, --config="/exporter/config.yaml"
                                  Exporter config file. Default: /exporter/config.yaml
-  -n, --clusterName="hadoop_cluster"  
+  -n, --clusterName="hadoop_cluster"
                                  Hadoop cluster labels. Default: hadoop_cluster
       --nameNodeJmx=NAMENODEJMX  List of HDFS namenode JMX url seperated by comma (,). Example:
                                  http://localhost:9870/jmx
       --dataNodeJmx=DATANODEJMX  List of HDFS datanode JMX url seperated by comma (,). Example:
                                  http://localhost:9864/jmx
-      --journalNodeJmx=JOURNALNODEJMX  
+      --journalNodeJmx=JOURNALNODEJMX
                                  List of HDFS journalnode JMX url seperated by comma (,). Example:
                                  http://localhost:8480/jmx
-      --resourceManagerJmx=RESOURCEMANAGERJMX  
+      --resourceManagerJmx=RESOURCEMANAGERJMX
                                  List of YARN resourcemanager JMX url seperated by comma (,). Example:
                                  http://localhost:8088/jmx
-      --nodeManagerJmx=NODEMANAGERJMX  
+      --nodeManagerJmx=NODEMANAGERJMX
                                  List of YARN nodemanager JMX url seperated by comma (,). Example:
                                  http://localhost:8042/jmx
-      --jobHistoryJmx=JOBHISTORYJMX  
+      --jobHistoryJmx=JOBHISTORYJMX
                                  List of Mapreduce jobhistory JMX url seperated by comma (,). Example:
                                  http://localhost:19888/jmx
       --hMasterJmx=HMASTERJMX    List of HBase master JMX url seperated by comma (,). Example:
                                  http://localhost:16010/jmx
-      --hRegionServerJmx=HREGIONSERVERJMX  
+      --hRegionServerJmx=HREGIONSERVERJMX
                                  List of HBase regionserver JMX url seperated by comma (,). Example:
                                  http://localhost:16030/jmx
-      --hiveServer2Jmx=HIVESERVER2JMX  
+      --hiveServer2Jmx=HIVESERVER2JMX
                                  List of HiveServer2 JMX url seperated by comma (,). Example:
                                  http://localhost:10002/jmx
       --hiveLLAPJmx=HIVELLAPJMX  List of Hive LLAP JMX url seperated by comma (,). Example:
                                  http://localhost:15002/jmx
   -a, --autoDiscovery            Enable auto discovery if set true else false. Default: false
-  -w, --discoveryWhileList=DISCOVERYWHILELIST  
+  -w, --discoveryWhileList=DISCOVERYWHILELIST
                                  List of shortnames of services (namenode: nn, datanode: dn, ...) that should be
                                  enable to auto discovery
   -h, --address="0.0.0.0"        Enable auto discovery if set true else false. Default: 0.0.0.0
@@ -68,6 +71,7 @@ Flags:
 ```
 
 You can use config file (yaml format) to replace commandline args. Example of config.yaml:
+
 ```
 # exporter server config
 server:
@@ -118,11 +122,13 @@ jmx:
 Tested on Apache Hadoop 2.7.3, 3.3.0, 3.3.1, 3.3.2
 
 ## Grafana Monitoring
+
 There are [HDFS](./dashboards/hdfs.json) and [YARN](./dashboards/yarn.json) dashboard definition prepared by me. You can import it directly on grafana.
 
 ## Docker deployment
 
 Run container:
+
 ```
 docker run -d \
   --name hadoop-exporter \
@@ -132,21 +138,24 @@ docker run -d \
 ```
 
 You can also mount config to docker container:
+
 ```
 docker run -d \
-  --name hadoop_exporter \
+  --name hadoop_metric_exporter \
   --mount type=bind,source=/path/to/config.yaml,target=/tmp/config.yaml \
   vqcuong96/hadoop_metric_exporter \
   -c /tmp/config.yaml
 ```
 
 To build your own images, run:
+
 ```
 ./docker/build.sh [your_repo] [your_version_tag]
 ```
 
 Example:
+
 ```
-./docker/build.sh mydockerhub/ latest 
+./docker/build.sh mydockerhub/ latest
 #your image will look like: mydockerhub/hadoop_metric_exporter:latest
 ```

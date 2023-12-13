@@ -2,8 +2,8 @@ package server
 
 import (
 	"fmt"
-	"hadoop_exporter/collector"
-	"hadoop_exporter/utils"
+	"hadoop_metric_exporter/collector"
+	"hadoop_metric_exporter/utils"
 	"net/http"
 	"strconv"
 	"strings"

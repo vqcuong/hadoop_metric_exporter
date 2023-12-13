@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ "x$1" != "x" && "$1" != -* ]]; then
-  exec "$@"
+	exec "$@"
 else
-  /hadoop_exporter "$@"
+	/hadoop_metric_exporter "$@"
 fi

@@ -1,8 +1,6 @@
 package main
 
-import (
-	"hadoop_exporter/server"
-)
+import "hadoop_metric_exporter/server"
 
 func main() {
 	exporter := server.InitlExporterServer()

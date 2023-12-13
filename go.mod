@@ -1,4 +1,4 @@
-module hadoop_exporter
+module hadoop_metric_exporter
 
 go 1.21
 
